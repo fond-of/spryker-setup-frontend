@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class YvesBuildFrontendConsole
  * @package FondOfSpryker\Zed\SetupFrontend\Communication\Console
- * @method \FondOfSpryker\Zed\SetupFrontend\Business\SetupFrontendFacade getFacade()
+ * @method \Spryker\Zed\SetupFrontend\Business\SetupFrontendFacade getFacade()
  */
 class YvesBuildFrontendConsole extends SprykerYvesBuildFrontendConsole
 {
