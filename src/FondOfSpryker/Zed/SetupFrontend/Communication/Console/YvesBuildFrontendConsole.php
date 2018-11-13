@@ -2,28 +2,27 @@
 
 namespace FondOfSpryker\Zed\SetupFrontend\Communication\Console;
 
+use FondOfSpryker\Shared\SetupFrontend\SetupFrontendConstants;
 use Spryker\Zed\SetupFrontend\Communication\Console\YvesBuildFrontendConsole as SprykerYvesBuildFrontendConsole;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class YvesBuildFrontendConsole
- * @package FondOfSpryker\Zed\SetupFrontend\Communication\Console
- * @method \Spryker\Zed\SetupFrontend\Business\SetupFrontendFacade getFacade()
+ * @method \FondOfSpryker\Zed\SetupFrontend\Business\SetupFrontendFacade getFacade()
+ * @method \FondOfSpryker\Zed\SetupFrontend\Communication\SetupFrontendCommunicationFactory getFactory()
  */
 class YvesBuildFrontendConsole extends SprykerYvesBuildFrontendConsole
 {
-    const ARGUMENT_THEME_NAME = 'themeName';
-
     /**
      * @return void
      */
     protected function configure()
     {
-        $this->setName(self::COMMAND_NAME);
-        $this->setDescription(self::DESCRIPTION);
-        $this->addArgument(static::ARGUMENT_THEME_NAME, InputArgument::REQUIRED, 'use value from config $YVES_THEME');
+        $this
+            ->setName(self::COMMAND_NAME)
+            ->setDescription(self::DESCRIPTION)
+            ->addArgument(SetupFrontendConstants::ARGUMENT_THEME, null, InputArgument::REQUIRED);
 
         parent::configure();
     }
@@ -36,12 +35,38 @@ class YvesBuildFrontendConsole extends SprykerYvesBuildFrontendConsole
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
-        $this->info(sprintf('Build Yves frontend: %s', $input->getArgument(static::ARGUMENT_THEME_NAME)));
+        $this->validateTheme($input->getArgument(SetupFrontendConstants::ARGUMENT_THEME));
+        $this->info(sprintf('Build Yves frontend: %s', $input->getArgument(SetupFrontendConstants::ARGUMENT_THEME)));
 
-        if ($this->getFacade()->buildYvesFrontend($this->getMessenger())) {
+        if ($this->getFacade()->buildYvesFrontend(
+            $this->getMessenger(),
+            [SetupFrontendConstants::ARGUMENT_THEME => $input->getArgument(SetupFrontendConstants::ARGUMENT_THEME)]
+        )) {
             return static::CODE_SUCCESS;
         }
 
         return static::CODE_ERROR;
+    }
+
+    /**
+     * @param string $mode
+     *
+     * @return ?bool
+     */
+    protected function validateTheme($theme): ?bool
+    {
+        $fs = $this->getFactory()->createFilesystemComponent();
+
+        if ($theme === null) {
+            $this->error('No Theme-Name given: frontend:yves:build yourTheme');
+            exit;
+        }
+
+        if (!$fs->exists('./frontend/' . strtolower($theme))) {
+            $this->error(sprintf('Themefolder for "%s" not found in %s', $theme, './frontend/' . strtolower($theme)));
+            exit;
+        }
+
+        return true;
     }
 }
