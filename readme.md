@@ -23,3 +23,28 @@ protected function getConsoleCommands(Container $container)
     ...
 }
 ```
+
+You need to list all templates in your configration like:
+```
+$config[\FondOfSpryker\Shared\SetupFrontend\SetupFrontendConstants::YVES_THEMES] = ['theme1', 'theme2'];
+```
+
+
+## Usage
+
+frontend:yves:build
+
+Ask the user if all themes should be created
+
+frontend:yves:build --force
+
+Build all themes without confirmation
+
+frontend:yves:build themeName
+
+Build only the given theme
+
+
+
+
+
