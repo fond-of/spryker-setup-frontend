@@ -38,8 +38,6 @@ class SetupFrontendConfig extends SprykerSetupFrontendConfig
     {
         $mode = $this->get(SetupFrontendConstants::FRONTEND_BUILD_MODE, '');
 
-        dump(($mode) ? ':' . $mode : null);
-
         return ($mode) ? ':' . $mode : null;
     }
 }
