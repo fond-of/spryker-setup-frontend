@@ -34,7 +34,7 @@ class SetupFrontendBusinessFactory extends SprykerSetupFrontendBusinessFactory
      *
      * @throws \Exception
      *
-     * @return null|string
+     * @return string|null
      */
     protected function getThemeName(array $arguments): ?string
     {

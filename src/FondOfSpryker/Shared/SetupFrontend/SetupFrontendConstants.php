@@ -6,17 +6,17 @@ use Spryker\Shared\SetupFrontend\SetupFrontendConstants as SprykerSetupFrontendC
 
 interface SetupFrontendConstants extends SprykerSetupFrontendConstants
 {
-    const ARGUMENT_THEME = 'theme';
+    public const ARGUMENT_THEME = 'theme';
 
-    const OPTION_FORCE = 'force';
+    public const OPTION_FORCE = 'force';
 
-    const THEME_BUILD_CHOICE = 'No template name given, generate all?';
+    public const THEME_BUILD_CHOICE = 'No template name given, generate all?';
 
-    const THEME_BUILD_CHOICE_NO = 'no';
+    public const THEME_BUILD_CHOICE_NO = 'no';
 
-    const THEME_BUILD_CHOICE_YES = 'yes';
+    public const THEME_BUILD_CHOICE_YES = 'yes';
 
-    const YVES_THEMES = 'yves_themes';
+    public const YVES_THEMES = 'yves_themes';
 
-    const FRONTEND_BUILD_MODE = 'FRONTEND_BUILD_MODE';
+    public const FRONTEND_BUILD_MODE = 'FRONTEND_BUILD_MODE';
 }

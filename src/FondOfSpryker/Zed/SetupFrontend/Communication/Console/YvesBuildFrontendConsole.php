@@ -101,7 +101,7 @@ class YvesBuildFrontendConsole extends SprykerYvesBuildFrontendConsole
     /**
      * @param string|array $mode
      *
-     * @return ?bool
+     * @return ?bool|null
      */
     protected function validateTheme(array $themes): ?bool
     {
